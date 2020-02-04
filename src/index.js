@@ -1,12 +1,11 @@
-import chalk from 'chalk';
+import Koa from 'koa';
 
-async function fn() {
-  console.log(chalk.blue('Hello world!'));
+const app = new Koa();
+
+const response = async ctx => {
+  ctx.body = 'Hello world';
 }
 
-async function main() {
-  await fn();
-}
+app.use(response);
 
-main().catch(err => console.error(err));
-
+app.listen(3000, () => console.log('App is listening at 3000...'));
