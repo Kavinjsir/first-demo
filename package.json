@@ -6,12 +6,14 @@
   "scripts": {
     "build": "babel src -d lib",
     "start": "node src/index.js",
+    "race": "node src/play/race.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tony Jin <tonyjin@secondspectrum.com>",
   "license": "ISC",
   "dependencies": {
     "chalk": "^3.0.0",
+    "chalk-animation": "^1.6.0",
     "koa": "^2.11.0",
     "koa-router": "^8.0.6",
     "koa-send": "^5.0.0"
