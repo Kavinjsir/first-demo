@@ -1,24 +1,19 @@
-import Koa from 'koa';
-import Router from 'koa-router';
-import send from 'koa-send';
+import Koa from "koa";
+import Router from "koa-router";
+import send from "koa-send";
 
-const router = new Router();
-
-const STATIC_PATH = '';
-
-router.get('/(.*)', async ctx => {
-  const path = ctx.path;
-  await send(ctx, path, { root:  STATIC_PATH})
-
-})
+const STATIC_FILE_PREFIX = `${__dirname}/../public`;
 
 const app = new Koa();
 
-const response = async ctx => {
-  ctx.body = 'Hello world';
-}
+const router = new Router();
 
-app.use(response);
+router.get("/(.*)", async ctx => {
+  const path = ctx.path === "/" ? "/index.html" : ctx.path;
+  console.log("coming request's path:", path);
+  await send(ctx, path, { root: STATIC_FILE_PREFIX });
+});
 
-app.listen(3000, () => console.log('App is listening at 3000...'));
+app.use(router.routes()).use(router.allowedMethods());
 
+app.listen(3000, () => console.log("App is listening at 3000..."));

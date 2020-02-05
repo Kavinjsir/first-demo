@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib",
-    "start": "node src/index.js",
+    "start": "node lib/index.js",
+    "dev": "nodemon lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tony Jin <tonyjin@secondspectrum.com>",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4"
+    "@babel/preset-env": "^7.8.4",
+    "nodemon": "^2.0.2"
   }
 }
