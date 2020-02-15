@@ -1,5 +1,5 @@
 // 插入排序-引入新result
-function insertSort(arr) {
+export function insertSort(arr) {
     const result = [];
     for (i = 0; i < arr.length;i++ ){
         let j = result.push(arr[i]);
@@ -16,9 +16,9 @@ function insertSort(arr) {
 }
 
 // 原地插入排序
-function inplaceInsertSort(arr){
-    for(i = 1; i < arr.length; i++) {
-      for(j = i; j > 0; j--) {
+export function inplaceInsertSort(arr){
+    for(let i = 1; i < arr.length; i++) {
+      for(let j = i; j > 0; j--) {
         if (arr[j] < arr[j-1]) {
             // 我创造的swap算法 niubi
             arr[j-1] = arr[j] - arr[j-1];
@@ -30,9 +30,9 @@ function inplaceInsertSort(arr){
 }
 
 // 选择排序 
-function selectionSortPractice(arr){
-    for(i = 0; i < arr.length; i++) {
-        for(j=i+1;j<arr.length;j++){
+export function selectionSortPractice(arr){
+    for(let i = 0; i < arr.length; i++) {
+        for(let j=i+1;j<arr.length;j++){
             if(arr[i]>arr[j]){
                 let third =arr[j];
                 arr[j]=arr[i]
@@ -42,7 +42,7 @@ function selectionSortPractice(arr){
     }
 }
 
-function selectionSort(arr){
+export function selectionSort(arr){
     for(i=0;i<arr.length;i++){
         let min = arr[i];
         for(j=i+1;j<arr.length;j++){
@@ -56,7 +56,7 @@ function selectionSort(arr){
 }
 
 // 归并排序
-function mergeSort(arr){
+export function mergeSort(arr){
     if (arr.length <= 1) return arr;
 
     const middle = Math.floor(arr.length / 2);
@@ -85,14 +85,11 @@ function merge(left, right){
     return mergeArr.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
 
-const arrTest=[3,49,2,3,4,1,4,67,2,1,3];
-console.log(mergeSort(arrTest));
-
 /**
  * Quick Sort
  */
 
-function quickSort(array) {
+export function quickSort(array) {
     if (array.length <= 1) {
       return array;
     }
@@ -111,16 +108,54 @@ function quickSort(array) {
     return quickSort(left).concat(pivot, quickSort(right));
   };
   
-//   var unsorted = [23, 45, 16, 37, 3, 99, 22];
-  var sorted = quickSort(arrTest);
-
-  console.log('Sorted array', sorted);
-
-
   /**
-   * 
    * 2020-02-14 TODO list
    * A reasonable way to test performance between different methods of sort.
    * Improve quick sort
    * find a quiz on leetcode of sort
    */
+
+function swap(items,leftIndex,rightIndex){
+    const temp = items[leftIndex]
+    items[leftIndex] = items[rightIndex]
+    items[rightIndex] = temp
+}
+
+function partition(items,left,right){
+    const pivot = items[Math.floor((left + right)/2)];
+    let i = left;
+    let j = right;
+    while(i <= j){
+        while(items[i]<pivot){
+            i++
+        }
+        while(items[j]>pivot){
+            j--
+        }
+        if(i <= j){
+            swap(items,i,j)
+            i++;
+            j--;
+        }
+    }
+    return i
+}
+
+function heavyQuickSort(items,left,right){
+    if(items.length <= 1) return items;
+    
+    const index = partition(items,left,right);
+
+    if (left < index - 1){
+        heavyQuickSort(items,left,index - 1);
+    }
+    if (index < right){
+        heavyQuickSort(items,index,right);
+    }
+
+    return items;
+}
+
+export function heavyQuickSorter(arr) {
+    return heavyQuickSort(arr, 0, arr.length - 1);
+}
