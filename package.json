@@ -12,6 +12,7 @@
   "author": "Tony Jin <tonyjin@secondspectrum.com>",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "chalk": "^3.0.0",
     "chalk-animation": "^1.6.0",
     "koa": "^2.11.0",
@@ -21,6 +22,14 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4"
+    "@babel/preset-env": "^7.8.4",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "prettier": {
+    "semi": true,
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
