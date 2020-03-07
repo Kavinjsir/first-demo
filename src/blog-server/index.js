@@ -7,10 +7,11 @@ const router = new Router();
 const STATIC_PATH = `${__dirname}/../../public`;
 
 router.get('/(.*)', async ctx => {
-  const path = ctx.path === '/' ? '/index.html' : ctx.path;
+  const originalPath = ctx.path === '/' ? '/index.html' : ctx.path;
+  const finalPath = decodeURIComponent(originalPath);
 
   try {
-    await send(ctx, path, { root: STATIC_PATH });
+    await send(ctx, finalPath, { root: STATIC_PATH });
   } catch (error) {
     console.error(error);
 
