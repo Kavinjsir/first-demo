@@ -6,7 +6,7 @@ const router = new Router();
 
 const STATIC_PATH = `${__dirname}/../../public`;
 
-const ARTICLE_URL_FORMAT = /\/(\d{4}\/\d{2}\/\d{2}\/).*/;
+const ARTICLE_URL_FORMAT = /\/(\d{4}\/\d{2}\/\d{2}\/)/;
 
 function convertURLToFilePath(url) {
   if (url === '/') return '/index.html';
@@ -15,9 +15,11 @@ function convertURLToFilePath(url) {
 
   const matchResult = filePath.match(ARTICLE_URL_FORMAT);
 
-  if (matchResult === null || matchResult.length !== 2) return filePath;
+  if (matchResult === null || matchResult.index < 0 || matchResult.index >= url.length) {
+    return filePath;
+  }
 
-  return filePath + '/index.html';
+  return `${filePath}/index.html`;
 }
 
 router.get('/(.*)', async ctx => {
