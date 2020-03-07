@@ -6,11 +6,26 @@ const router = new Router();
 
 const STATIC_PATH = `${__dirname}/../../public`;
 
-router.get('/(.*)', async ctx => {
-  const path = ctx.path === '/' ? '/index.html' : ctx.path;
+const ARTICLE_URL_FORMAT = /\/(\d{4}\/\d{2}\/\d{2}\/)/;
 
+function convertURLToFilePath(url) {
+  if (url === '/') return '/index.html';
+
+  const filePath = decodeURIComponent(url);
+
+  const matchResult = filePath.match(ARTICLE_URL_FORMAT);
+
+  if (matchResult === null || matchResult.index < 0 || matchResult.index >= url.length) {
+    return filePath;
+  }
+
+  return `${filePath}/index.html`;
+}
+
+router.get('/(.*)', async ctx => {
+  const filePath = convertURLToFilePath(ctx.path);
   try {
-    await send(ctx, path, { root: STATIC_PATH });
+    await send(ctx, filePath, { root: STATIC_PATH });
   } catch (error) {
     console.error(error);
 
