@@ -2,6 +2,9 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import send from 'koa-send';
 
+import conditional from 'koa-conditional-get';
+import etag from 'koa-etag';
+
 const router = new Router();
 
 const STATIC_PATH = `${__dirname}/../../public`;
@@ -35,6 +38,15 @@ router.get('/(.*)', async ctx => {
 });
 
 const app = new Koa();
+
+// use it upstream from etag so
+// that they are present
+
+app.use(conditional());
+
+// add etags
+
+app.use(etag());
 
 app.use(router.routes()).use(router.allowedMethods());
 
