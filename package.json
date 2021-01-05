@@ -13,7 +13,7 @@
   "author": "Tony Jin <tonyjin@secondspectrum.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^3.0.0",
     "chalk-animation": "^1.6.0",
     "koa": "^2.11.0",
